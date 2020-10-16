@@ -25,4 +25,13 @@ interface Api {
     @GET("order-food-complete")
     fun orderFoodComplete(@Query("order_food_id")orderFoodId:Int):Observable<BaseResponse<Any?>>
 
+    @GET("get-my-foods")
+    fun getMyFoods():Observable<BaseResponse<List<ProductModel>?>>
+
+    @POST("order-food-cancel")
+    fun ordrFoodCancel(@Body request:OrderCancelModel):Observable<BaseResponse<Any?>>
+
+    @POST("food-have")
+    fun orderFoodHave(@Body request:OrderFoodHave):Observable<BaseResponse<Any?>>
+
 }

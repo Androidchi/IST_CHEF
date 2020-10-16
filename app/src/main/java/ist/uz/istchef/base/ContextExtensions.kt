@@ -9,12 +9,19 @@ import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.os.Parcelable
+import android.util.Log
 import android.view.View
 import android.webkit.CookieManager
 import android.webkit.CookieSyncManager
+import android.widget.ImageView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
+import ist.uz.istchef.R
+import ist.uz.istchef.utils.Constants
+import ist.uz.istchef.utils.GlideUtils
+import ist.uz.istchef.utils.TextUtils
 import ist.uz.istchef.view.view.costum.JSAlertDialogCallback
 import ist.uz.istchef.view.view.costum.JWAlertDialog
 import ist.uz.istchef.view.view.costum.JWAlertType
@@ -26,6 +33,10 @@ import java.util.*
     Toast
  */
 
+
+fun Context.showToast(string: String) {
+    Toast.makeText(this, string, Toast.LENGTH_LONG).show()
+}
 
 //fun Context.showError(message: String) {
 //    Toasty.error(this, message, Toast.LENGTH_LONG, true).show()
@@ -318,22 +329,19 @@ fun Context.clearCookies() {
         cookieSyncMngr.sync()
     }
 }
+fun Double?.formattedAmount(): String{
+    return TextUtils.getFormattedAmount(this)
+}
 
-//fun Double?.formattedAmount(currency: CurrencyEnum? = null): String{
-//    return TextUtils.getFormattedAmount(this, currency)
-//}
-//
-//fun View.getColor(color: Int): Int{
-//    return ContextCompat.getColor(this.context, color)
-//}
-//
-//fun ImageView.loadImage(url: String?){
-//    if (url != null){
-//        GlideUtils.loadImage(this, url)
-//    }else{
-//        this.setImageResource(R.drawable.placeholder)
-//    }
-//}
+
+fun ImageView.loadImage(url: String?){
+    Log.d("JW", url ?: "")
+    if (url != null){
+        GlideUtils.loadImage(this, Constants.HOST_IMAGE + "?pic=" + url)
+    }else{
+        this.setImageResource(R.drawable.placeholder)
+    }
+}
 fun <T> MutableList<T>.swap(index1: Int, index2: Int) {
     val tmp = this[index1] // 'this' corresponds to the list
     this[index1] = this[index2]
