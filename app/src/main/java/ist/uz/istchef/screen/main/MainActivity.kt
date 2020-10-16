@@ -17,7 +17,7 @@ import ist.uz.istchef.model.EventModel
 import ist.uz.istchef.screen.main.aboutapp.AboutAppActivity
 import ist.uz.istchef.screen.main.order.OrderFoodsFragment
 import ist.uz.istchef.screen.main.proccess.ProccessingFragment
-import ist.uz.istchef.screen.main.selected.CompletedFragment
+import ist.uz.istchef.screen.main.completed.CompletedFragment
 import ist.uz.istchef.screen.main.waiting.WaitingFoodFragment
 import ist.uz.istchef.splash.SplashActivity
 import ist.uz.istchef.utils.Constants

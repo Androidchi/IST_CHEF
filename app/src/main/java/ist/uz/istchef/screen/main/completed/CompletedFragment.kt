@@ -1,7 +1,6 @@
-package ist.uz.istchef.screen.main.selected
+package ist.uz.istchef.screen.main.completed
 
 import android.os.Bundle
-import android.view.View
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
@@ -15,7 +14,6 @@ import ist.uz.istchef.view.view.adapter.OrderFoodsAdapterListener
 import ist.uz.personalstore.base.BaseFragment
 import ist.uz.personalstore.base.showError
 import kotlinx.android.synthetic.main.completed_fragment.*
-import kotlinx.android.synthetic.main.orders_food_item_adapter.*
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 

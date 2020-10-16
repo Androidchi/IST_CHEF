@@ -35,6 +35,7 @@ class ProccessingFragment : BaseFragment(), SwipeRefreshLayout.OnRefreshListener
         })
 
         viewModel.orderFoodProcessData.observe(this,{
+            EventBus.getDefault().post(EventModel(Constants.EVENT_UPDATE_COMPLETE,0))
             loadData()
         })
 

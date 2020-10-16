@@ -17,7 +17,7 @@ class Constants{
         const val FRAGMENT_MANUFACTURER = 2
         const val FRAGMENT_SETTINGS = 3
 
-        const val EVENT_SELECT_ADDRESS = 1
+        const val EVENT_UPDATE_COMPLETE = 1
         const val EVENT_LOGOUT = 2
         const val EVENT_UPDATE_PRODUCTS = 3
         const val EVENT_UPDATE_FAVOURITES = 4
