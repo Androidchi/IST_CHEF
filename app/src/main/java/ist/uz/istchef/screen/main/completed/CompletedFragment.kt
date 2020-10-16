@@ -81,7 +81,8 @@ class CompletedFragment : BaseFragment(), SwipeRefreshLayout.OnRefreshListener {
 
     @Subscribe
     fun onEvent(event: EventModel<Int>) {
-        if (event.event == Constants.EVENT_UPDATE) {
+        if (event.event == Constants.EVENT_UPDATE_COMPLETE) {
+           loadData()
             setupViews()
 
         }
