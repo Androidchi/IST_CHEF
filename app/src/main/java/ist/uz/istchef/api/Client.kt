@@ -1,50 +1,50 @@
 package ist.uz.istchef.api
 
-import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Build
 import com.google.gson.GsonBuilder
 import com.readystatesoftware.chuck.ChuckInterceptor
 import ist.uz.istchef.BuildConfig
 import ist.uz.istchef.utils.Prefs
-import okhttp3.Interceptor
-import okhttp3.OkHttpClient
-import okhttp3.Request
-import okhttp3.Response
+import okhttp3.*
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
-import java.security.KeyStore
-import java.util.*
 import java.util.concurrent.TimeUnit
 import javax.net.ssl.SSLContext
+import okhttp3.OkHttpClient
+import java.security.KeyStore
+import java.util.*
 import javax.net.ssl.TrustManagerFactory
 import javax.net.ssl.X509TrustManager
 
-object ISTClient {
 
-    internal  var retrofit: Retrofit?= null
-    fun intitClient(context: Context) {
+object Client {
+
+    var retrofit: Retrofit? = null
+
+    fun initClient(context: Context, host: String) {
         val gson = GsonBuilder()
             .setLenient()
             .create()
 
         retrofit = Retrofit.Builder()
-            .baseUrl("http://www.366655-cr96270.tmweb.ru/admin/api/chef/")
+            .baseUrl(host)
             .client(getOkHttpClient(context))
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             .addConverterFactory(GsonConverterFactory.create(gson))
             .build()
     }
 
-//    fun getInstanse(context: Context):Retrofit{
-//        if (retrofit != null){
-//            return retrofit!!
-//        }else{
-//            intitClient(context)
-//            return retrofit!!
-//        }
-//    }
+    fun getInstance(context: Context): Retrofit{
+        if (retrofit != null){
+            return retrofit!!
+        }else{
+            val data = Prefs.getServerData()
+            initClient(context, data!!.serverHost)
+            return retrofit!!
+        }
+    }
 
     fun getOkHttpClient(context: Context): OkHttpClient {
         var builder = OkHttpClient().newBuilder()
@@ -52,17 +52,16 @@ object ISTClient {
         builder.connectTimeout(60, TimeUnit.SECONDS)
         builder.writeTimeout(60, TimeUnit.SECONDS)
         builder.readTimeout(60, TimeUnit.SECONDS)
-        builder.followRedirects(false)
         if (BuildConfig.DEBUG) {
             builder.addInterceptor(ChuckInterceptor(context))
         }
         builder.addInterceptor(AppInterceptor())
-        builder=enableTls12OnPreLolipop(builder)
+        builder = enableTls12OnPreLollipop(builder)
 
         return builder.build()
     }
 
-    private fun enableTls12OnPreLolipop(client: OkHttpClient.Builder): OkHttpClient.Builder {
+    private fun enableTls12OnPreLollipop(client: OkHttpClient.Builder): OkHttpClient.Builder {
         if (Build.VERSION.SDK_INT in 16..21) {
             try {
                 val trustManagerFactory =
@@ -86,7 +85,9 @@ object ISTClient {
             }
         } else {
             return client
+
         }
+
     }
 
     class AppInterceptor : Interceptor {
@@ -99,8 +100,11 @@ object ISTClient {
             var builder = original.newBuilder()
             builder.addHeader("Content-Type", "application/json")
             builder.header("Connection", "close")
+            builder.header("X-MobileLang", Prefs.getLang())
             builder.header("X-Mobile-Type", "android")
-            builder.addHeader("token",Prefs.getToken())
+            if (!Prefs.getToken().isNullOrEmpty()){
+                builder.addHeader("token", Prefs.getToken())
+            }
             builder.method(original.method(), original.body())
             return builder.build()
         }

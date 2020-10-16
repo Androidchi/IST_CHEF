@@ -3,6 +3,7 @@ package ist.uz.istchef.utils
 import com.orhanobut.hawk.Hawk
 import ist.uz.istchef.App
 import ist.uz.istchef.model.BasketModel
+import ist.uz.istchef.model.MobileData
 import ist.uz.istchef.model.UserModel
 
 const val PREF_TOKEN = "pref_token"
@@ -98,6 +99,9 @@ class Prefs {
                 }
             }
             Hawk.put(PREF_CART, items)
+        }
+        fun getServerData(): MobileData?{
+            return Hawk.get(PREF_SERVER_DATA)
         }
 
         fun clearAll(){

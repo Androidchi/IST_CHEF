@@ -2,8 +2,8 @@ package ist.uz.istchef.utils
 
 class Constants{
     companion object{
-        const val HOST = "https://loppi.uz/"
-        const val HOST_IMAGE = "http://192.168.1.123/kafe.loc/admin/api/waiter/photo"
+        const val HOST = "http://www.366655-cr96270.tmweb.ru/admin/api/chef/"
+        const val HOST_IMAGE = "http://www.366655-cr96270.tmweb.ru/admin/uploads/"
         const val HOST_OFFER = "https://ilm-markaz.uz/perspectives/offers/opencontent/support/"
 
         const val START_FRAGMENT = "start_fragment"

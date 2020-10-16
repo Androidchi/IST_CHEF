@@ -337,7 +337,7 @@ fun Double?.formattedAmount(): String{
 fun ImageView.loadImage(url: String?){
     Log.d("JW", url ?: "")
     if (url != null){
-        GlideUtils.loadImage(this, Constants.HOST_IMAGE + "?pic=" + url)
+        GlideUtils.loadImage(this, Constants.HOST_IMAGE + url)
     }else{
         this.setImageResource(R.drawable.placeholder)
     }
